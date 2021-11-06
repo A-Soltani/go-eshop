@@ -3,7 +3,7 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/A-Soltani/go-eshop/src/services/ordering/domain"
+	domain "github.com/A-Soltani/go-eshop/src/services/ordering/domain/order-aggregate"
 	"github.com/stretchr/testify/assert"
 )
 
