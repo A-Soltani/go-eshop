@@ -15,7 +15,9 @@ func TestAddOrderItem_InvalidUnits_ErrorShouldBeReturned(t *testing.T) {
 	unitPrice := 1.5
 	discount := 0.5
 
-	orderItem, _ := domain.AddOrderItem(productId, units, unitPrice, discount)
+	o := domain.AddOrder()
+	_ = o.AddOrderItem(productId, units, unitPrice, discount)
+	orderItem := o.OrderItems[0]
 	err := orderItem.AddUnits(newUnits)
 
 	assert.IsType(t, &errors.OrderingDomainError{}, err)
@@ -27,7 +29,8 @@ func TestAddOrderItem_InvalidDiscount_ErrorShouldBeReturned(t *testing.T) {
 	unitPrice := 1.5
 	discount := 30.5
 
-	_, err := domain.AddOrderItem(productId, units, unitPrice, discount)
+	o := domain.AddOrder()
+	err := o.AddOrderItem(productId, units, unitPrice, discount)
 
 	assert.IsType(t, &errors.OrderingDomainError{}, err)
 }

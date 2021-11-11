@@ -21,17 +21,20 @@ func AddOrder() *Order {
 	return o
 }
 
-func AddOrderItem(productId int, units int, unitPrice float64, discount float64) (*OrderItem, error) {
+func (o *Order) AddOrderItem(productId int, units int, unitPrice float64, discount float64) error {
 	if productId < 1 {
-		return nil, &errors.OrderingDomainError{Msg: "productId should be greater than 1"}
+		return &errors.OrderingDomainError{Msg: "productId should be greater than 1"}
 	}
 	if float64(units)*unitPrice < discount {
-		return nil, &errors.OrderingDomainError{Msg: "The total of order item is lower than applied discount"}
+		return &errors.OrderingDomainError{Msg: "The total of order item is lower than applied discount"}
 	}
-	oi := &OrderItem{
+
+	oi := OrderItem{
 		productId: productId,
 		units:     units,
 		unitPrice: unitPrice,
 		discount:  discount}
-	return oi, nil
+
+	o.OrderItems = append(o.OrderItems, oi)
+	return nil
 }

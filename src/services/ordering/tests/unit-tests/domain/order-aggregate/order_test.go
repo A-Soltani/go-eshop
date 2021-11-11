@@ -12,3 +12,15 @@ func TestAddOrder_ValidStatus_ValidOrderShouldBeReturned(t *testing.T) {
 
 	assert.True(t, o.Status == domain.OrderSubmitted)
 }
+
+func TestAddOrderItem_NewOrderItem_NewOrderItemShouldBeAddedToOrderItems(t *testing.T) {
+	productId := 1
+	units := 1
+	unitPrice := 1.5
+	discount := 0.5
+
+	o := domain.AddOrder()
+	_ = o.AddOrderItem(productId, units, unitPrice, discount)
+
+	assert.Equal(t, len(o.OrderItems), 1)
+}
