@@ -24,3 +24,11 @@ func TestAddOrderItem_NewOrderItem_NewOrderItemShouldBeAddedToOrderItems(t *test
 
 	assert.Equal(t, len(o.OrderItems), 1)
 }
+
+func TestCancelOrder_SetCancelledStatus_OrderCancelledDomainEventShouldBeAdded(t *testing.T) {
+
+	o := domain.AddOrder()
+	o.Cancel()
+
+	assert.True(t, o.Status == domain.OrderCancelled)
+}

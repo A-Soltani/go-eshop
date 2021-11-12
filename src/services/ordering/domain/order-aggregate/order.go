@@ -7,12 +7,14 @@ type OrderStatus int
 const (
 	OrderSubmitted OrderStatus = 1
 	OrderPaid      OrderStatus = 2
+	OrderCancelled OrderStatus = 3
 )
 
 type Order struct {
-	Id         int
-	Status     OrderStatus
-	OrderItems []OrderItem
+	Id          int
+	Status      OrderStatus
+	OrderItems  []OrderItem
+	description string
 }
 
 func AddOrder() *Order {
@@ -37,4 +39,9 @@ func (o *Order) AddOrderItem(productId int, units int, unitPrice float64, discou
 
 	o.OrderItems = append(o.OrderItems, oi)
 	return nil
+}
+
+func (o *Order) Cancel() {
+	o.description = "The order was cancelled."
+	o.Status = OrderCancelled
 }
