@@ -44,4 +44,10 @@ func (o *Order) AddOrderItem(productId int, units int, unitPrice float64, discou
 func (o *Order) Cancel() {
 	o.description = "The order was cancelled."
 	o.Status = OrderCancelled
+	o.addDomainEvent()
+
+}
+
+func (o *Order) addDomainEvent() {
+
 }
